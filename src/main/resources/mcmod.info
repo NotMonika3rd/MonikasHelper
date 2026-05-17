@@ -1,0 +1,17 @@
+[
+  {
+    "modid": "monikashelper",
+    "name": "Monika's Helper",
+    "description": "",
+    "version": "0.0.1",
+    "url": "",
+    "authorList": ["NotMonika"],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "useDependencyInformation": true,
+    "requiredMods": [],
+    "dependencies": [
+    ]
+  }
+]
