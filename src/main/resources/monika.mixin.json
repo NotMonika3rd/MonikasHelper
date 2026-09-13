@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "rip.sayori.helper.mixin",
+  "compatibilityLevel": "JAVA_25",
+  "target": "@env(DEFAULT)",
+  "client": [],
+  "mixins": [
+    "MixinEventBus"
+  ],
+  "server": [],
+  "setSourceFile": true,
+  "minVersion": "0.8.7"
+}

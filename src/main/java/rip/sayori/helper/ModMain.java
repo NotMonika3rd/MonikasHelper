@@ -4,10 +4,12 @@ import com.sun.tools.attach.AgentInitializationException;
 import com.sun.tools.attach.AgentLoadException;
 import com.sun.tools.attach.AttachNotSupportedException;
 import com.sun.tools.attach.VirtualMachine;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import rip.sayori.helper.plugin.PluginManager;
+import rip.sayori.helper.plugin.TestPlugin;
 import sun.misc.Unsafe;
-
 
 import java.io.IOException;
 import java.lang.management.ManagementFactory;
@@ -22,6 +24,7 @@ public class ModMain {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent e) {
+        PluginManager.registerPlugin(TestPlugin.class);
     }
 
     private static void allowAttachSelf() {
@@ -77,11 +80,9 @@ public class ModMain {
             }
             UNSAFE = found;
         }
-        catch (Throwable var5) {
-            throw new ExceptionInInitializerError(var5);
+        catch (Throwable t) {
+            throw new ExceptionInInitializerError(t);
         }
-
         doAttach();
-
     }
 }
