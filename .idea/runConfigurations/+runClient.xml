@@ -18,9 +18,12 @@
         </envs>
         <option name="MAIN_CLASS_NAME" value="com.cleanroommc.boot.MainClient"></option>
         <module name="MonikasHelper.main"></module>
-        <classpathModifications></classpathModifications>
+        <classpathModifications>
+            <entry path="C:\Users\Admin\IdeaProjects\MonikasHelper\build\classes\java\main" exclude="true"></entry>
+            <entry path="C:\Users\Admin\IdeaProjects\MonikasHelper\build\resources\main" exclude="true"></entry>
+        </classpathModifications>
         <option name="PROGRAM_PARAMETERS" value=""></option>
-        <option name="VM_PARAMETERS" value="-Xmx2G -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -XX:G1NewSizePercent=20 -XX:G1ReservePercent=20 -XX:MaxGCPauseMillis=50 -XX:G1HeapRegionSize=32M -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump &quot;-Dos.name=Windows 10&quot; -Dos.version=10.0 -Djava.library.path=C:\Users\Admin\IdeaProjects\MonikasHelper\run\client\natives -Dminecraft.launcher.brand=UniminedDev -Dminecraft.launcher.version=1.0.0 -javaagent:C:\Users\Admin\.gradle\caches\modules-2\files-2.1\io.github.juuxel\unprotect\1.3.0\d51641f60082321fa30f4b220741d2c9fe122151\unprotect-1.3.0.jar -Dcrl.dev.extrapath="></option>
+        <option name="VM_PARAMETERS" value="-Xmx2G -XX:+UnlockExperimentalVMOptions -XX:+UseG1GC -XX:G1NewSizePercent=20 -XX:G1ReservePercent=20 -XX:MaxGCPauseMillis=50 -XX:G1HeapRegionSize=32M -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump &quot;-Dos.name=Windows 10&quot; -Dos.version=10.0 -Djava.library.path=C:\Users\Admin\IdeaProjects\MonikasHelper\run\client\natives -Dminecraft.launcher.brand=UniminedDev -Dminecraft.launcher.version=1.0.0 -javaagent:C:\Users\Admin\.gradle\caches\modules-2\files-2.1\io.github.juuxel\unprotect\1.3.0\d51641f60082321fa30f4b220741d2c9fe122151\unprotect-1.3.0.jar -Dcrl.dev.extrapath=C:\Users\Admin\IdeaProjects\MonikasHelper\build\classes\java\main;C:\Users\Admin\IdeaProjects\MonikasHelper\build\resources\main"></option>
         <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/run\client"></option>
         <method v="2">
             <option name="Make" enabled="true"></option>

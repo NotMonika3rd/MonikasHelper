@@ -1,88 +1,31 @@
 package rip.sayori.helper;
 
-import com.sun.tools.attach.AgentInitializationException;
-import com.sun.tools.attach.AgentLoadException;
-import com.sun.tools.attach.AttachNotSupportedException;
-import com.sun.tools.attach.VirtualMachine;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import rip.sayori.helper.plugin.PluginManager;
 import rip.sayori.helper.plugin.TestPlugin;
-import sun.misc.Unsafe;
 
-import java.io.IOException;
-import java.lang.management.ManagementFactory;
-import java.lang.reflect.Field;
-import java.net.JarURLConnection;
-import java.net.URLConnection;
+import java.util.Objects;
 
-@SuppressWarnings({"removal", "unused"})
+@SuppressWarnings({"unused"})
 @Mod(modid = "monikashelper",name = "Monika's Helper", version = "1.0")
 public class ModMain {
-    public static final Unsafe UNSAFE;
-
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent e) {
         PluginManager.registerPlugin(TestPlugin.class);
-    }
-
-    private static void allowAttachSelf() {
-        System.setProperty("jdk.attach.allowAttachSelf", "true");
-        try {
-            Class<?> vmClass = Class.forName("sun.tools.attach.HotSpotVirtualMachine");
-            Field allowAttachSelfField = vmClass.getDeclaredField("ALLOW_ATTACH_SELF");
-            Object base = UNSAFE.staticFieldBase(allowAttachSelfField);
-            long offset = UNSAFE.staticFieldOffset(allowAttachSelfField);
-            UNSAFE.putBoolean(base, offset, true);
-        }
-        catch (ClassNotFoundException | NoSuchFieldException _) { }
-    }
-
-    public static String findSelf(){
-        try {
-            URLConnection urlConnection = ModMain.class.getProtectionDomain().getCodeSource().getLocation().openConnection();
-            if(urlConnection instanceof JarURLConnection jarURLConnection){
-                return jarURLConnection.getJarFileURL().getPath();
-            }
-            return urlConnection.getURL().getPath();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static void doAttach(){
-        allowAttachSelf();
-        String pid = ManagementFactory.getRuntimeMXBean().getName().split("@")[0];
-        try {
-            VirtualMachine vm = VirtualMachine.attach(pid);
-            String path = System.getProperty("rip.sayori.helper.path", findSelf());
-            System.out.println(path);
-            if(path.startsWith("/"))path = path.substring(1);
-            vm.loadAgent(path);
-            vm.detach();
-        } catch (AttachNotSupportedException | IOException | AgentLoadException | AgentInitializationException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    static {
-        try {
-            Unsafe found = null;
-            for (Field field : Unsafe.class.getDeclaredFields()) {
-                if (field.getType() != Unsafe.class) continue;
-                field.setAccessible(true);
-                found = (Unsafe)field.get(null);
-                break;
-            }
-            if (found == null) {
-                throw new IllegalStateException("Can't find instance of sun.misc.Unsafe");
-            }
-            UNSAFE = found;
-        }
-        catch (Throwable t) {
-            throw new ExceptionInInitializerError(t);
-        }
-        doAttach();
+        Loader.instance().getIndexedModList().forEach((_, v) -> {
+            try {
+                e.getAsmData().getAnnotationsFor(v).forEach((_, vv) -> {
+                    if(Objects.equals(vv.getAnnotationName(), "rip.sayori.helper.utils.AutoLoad")){
+                        try {
+                            Class.forName(vv.getClassName());
+                        } catch (ClassNotFoundException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                });
+            } catch (NullPointerException _) { }
+        });
     }
 }
