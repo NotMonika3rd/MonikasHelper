@@ -9,7 +9,7 @@ import rip.sayori.helper.plugin.TestPlugin;
 import java.util.Objects;
 
 @SuppressWarnings({"unused"})
-@Mod(modid = "monikashelper",name = "Monika's Helper", version = "1.0")
+@Mod(modid = "monikashelper",name = "Monika's Helper", version = "1.1")
 public class ModMain {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent e) {
